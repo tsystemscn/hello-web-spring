@@ -97,3 +97,15 @@ Import the exist maven project `hello-web-spring`.
             return new ModelAndView(viewName, map);
         }
     }
+
+## Add Spring EL support
+
+Update standard JSP descriptor in `web.xml` or set `isELIgnored="false"`.
+
+    <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+      version="3.0"
+      metadata-complete="true">
+

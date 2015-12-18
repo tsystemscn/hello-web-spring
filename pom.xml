@@ -18,13 +18,13 @@
         <!-- spring version -->
         <spring.version>3.2.3.RELEASE</spring.version>
         <!-- junit -->
-        <junit-version>4.11</junit-version>
+        <junit.version>4.11</junit.version>
         <!-- slf4j-log4j -->
         <org.slf4j-log4j.version>1.7.7</org.slf4j-log4j.version>
     </properties>
 
     <dependencies>
-        <!-- spring -->
+        <!-- spring mvc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -41,7 +41,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit-version}</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- slf4j -->
