@@ -6,7 +6,7 @@
 
 <body>
 
-<h1>Hello: <%=request.getAttribute("name") %></h1>
+<h1>Hello: <%=request.getAttribute("message") %></h1>
 
 </body>
 </html>

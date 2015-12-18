@@ -28,3 +28,72 @@ Reset the `web.xml` file in the `src/main/webapp/WEB-INF` folder(remove related 
     </web-app>
 
 Import the exist maven project `hello-web-spring`.
+
+## Add SpringMVC support
+
+### Import spring-mvc jar in POM.xml
+
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+### Add the spring configuration
+
+    <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+        <context:component-scan base-package="com.tsystems.demo" />
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+            <property name="prefix">
+                <value>/WEB-INF/jsp/</value>
+            </property>
+            <property name="suffix">
+                <value>.jsp</value>
+            </property>
+        </bean>
+        <mvc:resources mapping="/resources/**" location="/resources/" />
+        <mvc:annotation-driven />
+    </beans>
+
+### Add spring servlet mapping in web.xml
+
+        <servlet>
+            <servlet-name>spring-web</servlet-name>
+            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+            <init-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>classpath:spring.xml</param-value>
+            </init-param>
+            <load-on-startup>1</load-on-startup>
+        </servlet>
+    
+        <servlet-mapping>
+            <servlet-name>spring-web</servlet-name>
+            <url-pattern>/</url-pattern>
+        </servlet-mapping>
+
+### Create the Controller class and related request mapping method
+
+    @Controller
+    public class HelloController {
+        @RequestMapping(value = "/hello/{message}", method = RequestMethod.GET)
+        public ModelAndView hello(@PathVariable("message") String message) {
+            // view: hello.jsp
+            String viewName = "hello";
+            // model
+            ModelMap map = new ModelMap();
+            map.put("message", message);
+            return new ModelAndView(viewName, map);
+        }
+    }
